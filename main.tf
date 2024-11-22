@@ -32,7 +32,7 @@ resource "aws_security_group" "hashicat" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
   }
 
   ingress {
@@ -61,7 +61,7 @@ data "aws_security_group" "example" {
 
 check "check_sg_state" {
   assert {
-    condition = data.aws_security_group.example.name == "blake-security-group"
+    condition = data.aws_security_group.example.name == "blakegroup"
     error_message = "no match"
   }
 }
