@@ -62,3 +62,14 @@ resource "aws_security_group" "hashicat" {
   }
 }
 
+data "aws_security_group" "example" {
+  name                = aws_security_group.hashicat.name
+}
+
+check "check_sg_state" {
+  assert {
+    condition = data.aws_security_group.example.name == "blake-security-group"
+    error_message = "no match"
+  }
+}
+
