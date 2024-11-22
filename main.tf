@@ -29,13 +29,6 @@ resource "aws_security_group" "hashicat" {
   name = "${var.prefix}-security-group"
 
   ingress {
-    from_port   = 22
-    to_port     = 23
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
-  }
-
-  ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -59,6 +52,17 @@ resource "aws_security_group" "hashicat" {
 
   tags = {
     Name = "${var.prefix}-security-group"
+  }
+}
+
+data "aws_security_group" "example" {
+  name                = aws_security_group.hashicat.name
+}
+
+check "check_sg_state" {
+  assert {
+    condition = data.aws_security_group.example.name == "blake-security-group"
+    error_message = "no match"
   }
 }
 
