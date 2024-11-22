@@ -57,6 +57,13 @@ resource "aws_security_group" "hashicat" {
 
 data "aws_security_group" "example" {
   name                = aws_security_group.hashicat.name
+  
+  lifecycle {
+    postcondition {
+    condition = data.aws_security_group.example.name == "blakegroup"
+    error_message = "no match"
+    }
+  }
 }
 
 check "check_sg_state" {
