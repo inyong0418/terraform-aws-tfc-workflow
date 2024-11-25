@@ -25,10 +25,9 @@ provider "aws" {
   }
 }
 
-resource "aws_iam_policy" "policy" {
+resource "aws_iam_role_policy" "policy" {
   name        = "${var.prefix}-test-policy"
-  path        = "/"
-  description = "My test policy"
+  role = aws_iam_role.test_policy.id
 
   policy = jsonencode({
 	"Version": "2012-10-17",
@@ -49,6 +48,30 @@ resource "aws_iam_policy" "policy" {
 	  ]
   })
 }
+
+resource "aws_iam_role" "test_role" {
+  name = "SAML_Developer-1"
+  managed_policy_arns = "ReadOnlyAccess"
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::851725357209:saml-provider/blake-okta"
+            },
+            "Action": "sts:AssumeRoleWithSAML",
+            "Condition": {
+                "StringEquals": {
+                    "SAML:aud": "https://signin.aws.amazon.com/saml"
+                }
+            }
+        }
+    ]
+})
+}
+
+
 
 #data "aws_security_group" "example" {
 #  name                = aws_security_group.hashicat.name
