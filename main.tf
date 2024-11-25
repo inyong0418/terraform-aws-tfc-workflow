@@ -25,9 +25,13 @@ provider "aws" {
   }
 }
 
+data "aws_iam_policy" "readonly" {
+  name     = "ReadOnlyAccess"
+}
+
 resource "aws_iam_role_policy" "policy" {
   name        = "${var.prefix}-test-policy"
-  role = aws_iam_role.test_policy.id
+  role = aws_iam_role.test_role.id
 
   policy = jsonencode({
 	"Version": "2012-10-17",
@@ -51,7 +55,7 @@ resource "aws_iam_role_policy" "policy" {
 
 resource "aws_iam_role" "test_role" {
   name = "SAML_Developer-1"
-  managed_policy_arns = "ReadOnlyAccess"
+  managed_policy_arns = [data.aws_iam_policy.readonly.arn]
   assume_role_policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
