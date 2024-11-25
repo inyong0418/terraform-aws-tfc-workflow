@@ -55,7 +55,7 @@ resource "aws_iam_role_policy" "policy" {
 
 resource "aws_iam_role" "test_role" {
   name = "SAML_Developer-1"
-  managed_policy_arns = [data.aws_iam_policy.readonly.arn]
+#  managed_policy_arns = [data.aws_iam_policy.readonly.arn]
   assume_role_policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
@@ -73,6 +73,16 @@ resource "aws_iam_role" "test_role" {
         }
     ]
 })
+}
+
+resource "aws_iam_role_policy_attachment" "readonly-attach" {
+  role       = aws_iam_role.test_role.name
+  policy_arn = data.aws_iam_policy.readonly.arn
+}
+
+resource "aws_iam_role_policy_attachment" "custom-attach" {
+  role       = aws_iam_role.test_role.name
+  policy_arn = aws_iam_role_policy.policy.arn
 }
 
 
