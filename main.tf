@@ -42,7 +42,10 @@ resource "aws_iam_role_policy" "policy" {
 			"Action": [
 				"s3:PutObject"
 			],
-			"Resource": "arn:aws:s3:::blake-test-1234567",
+			"Resource": [
+        "arn:aws:s3:::blake-test-1234567",
+        "arn:aws:s3:::blake-test-1234567/*"
+      ]
       "Condition": {
 				"StringLike": {
 					"aws:userid": "*:Blake"
@@ -79,6 +82,7 @@ resource "aws_iam_role_policy_attachment" "readonly-attach" {
   role       = aws_iam_role.test_role.name
   policy_arn = data.aws_iam_policy.readonly.arn
 }
+
 
 
 
