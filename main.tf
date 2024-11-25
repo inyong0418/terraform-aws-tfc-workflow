@@ -26,7 +26,7 @@ provider "aws" {
 }
 
 resource "aws_iam_policy" "policy" {
-  name        = "test_policy"
+  name        = "${var.prefix}-test-policy"
   path        = "/"
   description = "My test policy"
 
