@@ -39,7 +39,12 @@ resource "aws_iam_policy" "policy" {
 			"Action": [
 				"s3:PutObject"
 			],
-			"Resource": "arn:aws:s3:::blake-test-1234567"
+			"Resource": "arn:aws:s3:::blake-test-1234567",
+      "Condition": {
+				"StringLike": {
+					"aws:userid": "*:Blake"
+				}
+			}
 		}
 	  ]
   })
