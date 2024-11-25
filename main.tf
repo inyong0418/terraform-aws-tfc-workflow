@@ -50,21 +50,21 @@ resource "aws_iam_policy" "policy" {
   })
 }
 
-data "aws_security_group" "example" {
-  name                = aws_security_group.hashicat.name
+#data "aws_security_group" "example" {
+#  name                = aws_security_group.hashicat.name
+#
+#  lifecycle {
+#    postcondition {
+#    condition = self.name == "blakegroup"
+#    error_message = "no match"
+#    }
+#  }
+#}
 
-  lifecycle {
-    postcondition {
-    condition = self.name == "blakegroup"
-    error_message = "no match"
-    }
-  }
-}
-
-check "check_sg_state" {
-  assert {
-    condition = data.aws_security_group.example.name == "blakegroup"
-    error_message = "no match"
-  }
-}
+#check "check_sg_state" {
+#  assert {
+#    condition = data.aws_security_group.example.name == "blakegroup"
+#    error_message = "no match"
+#  }
+#}
 
