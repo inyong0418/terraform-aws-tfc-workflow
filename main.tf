@@ -19,8 +19,8 @@ provider "aws" {
   region = var.region
   default_tags {
     tags = {
-      name        = "${var.prefix}-vpc-${var.region}"
-      environment = var.environment
+      name        = "${var.prefix}-iam-policy"
+      role = var.role
     }
   }
 }
