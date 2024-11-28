@@ -34,7 +34,7 @@ variable "user-id" {
   default     = "*"
 
   validation {
-    condition = contains("*", var.user-id)
+    condition = contains(["*"], var.user-id)
     error_message = "Do not use *"
   }
 }
@@ -58,7 +58,7 @@ resource "aws_iam_role_policy" "policy" {
       ]
       "Condition": {
 				"StringLike": {
-					"aws:userid": "*:${var.user-id.name}"
+					"aws:userid": "*:${var.user-id}"
 				}
 			}
 		}
