@@ -9,7 +9,7 @@
 *.lock.hcl
 
 # .tfvars files
-*.tfvars
+#*.tfvars
 
 # no creds
 *.pem
