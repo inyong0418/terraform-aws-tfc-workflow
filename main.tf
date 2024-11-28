@@ -29,6 +29,10 @@ data "aws_iam_policy" "readonly" {
   name     = "ReadOnlyAccess"
 }
 
+data "username" "user-id" {
+  name     = "Blake"
+}
+
 resource "aws_iam_role_policy" "policy" {
   name        = "${var.prefix}-test-policy"
   role = aws_iam_role.test_role.id
@@ -48,7 +52,7 @@ resource "aws_iam_role_policy" "policy" {
       ]
       "Condition": {
 				"StringLike": {
-					"aws:userid": "*:Blake"
+					"aws:userid": "*:${data.username.user-id.name}"
 				}
 			}
 		}
