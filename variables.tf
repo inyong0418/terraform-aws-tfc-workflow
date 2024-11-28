@@ -67,9 +67,4 @@ variable "session-time" {
   description = ""
   type = string
   nullable = false
-
-  validation {
-    condition = !contains(["*"], var.user-id)
-    error_message = "Do not use *"
-  }
 }
