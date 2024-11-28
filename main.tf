@@ -31,7 +31,12 @@ data "aws_iam_policy" "readonly" {
 
 variable "user-id" {
   description = "User ID for restrict"
-  default     = "Inyong"
+  default     = "*"
+
+  validation {
+    condition = name == "*"
+    error_message = "Do not use *"
+  }
 }
 
 resource "aws_iam_role_policy" "policy" {
@@ -53,7 +58,7 @@ resource "aws_iam_role_policy" "policy" {
       ]
       "Condition": {
 				"StringLike": {
-					"aws:userid": "*:${var.user-id}"
+					"aws:userid": "*:${var.user-id.name}"
 				}
 			}
 		}
