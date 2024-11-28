@@ -77,17 +77,17 @@ data "aws_iam_policy_document" "cac-policy" {
         "arn:aws:s3:::blake-test-1234567/*",
     ]
 
-    condition {
-      test     = "StringLike"
-      variable = "aws:userid"
-      values   = ["*:${var.user-id}"]
-    }
+    # condition {
+    #   test     = "StringLike"
+    #   variable = "aws:userid"
+    #   values   = ["*:${var.user-id}"]
+    # }
 
-    condition {
-      test     = "DataLessThan"
-      variable = "aws:CurrentTime"
-      values   = [var.session-time]
-    }
+    # condition {
+    #   test     = "DataLessThan"
+    #   variable = "aws:CurrentTime"
+    #   values   = [var.session-time]
+    # }
   }
 }
 
