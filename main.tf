@@ -118,7 +118,7 @@ resource "aws_iam_role_policy_attachment" "readonly-attach" {
 
 resource "aws_iam_role_policy_attachment" "cac-attach" {
   role       = aws_iam_role.test_role.name
-  policy_arn = data.aws_iam_policy.cac-policy.arn
+  policy_arn = aws_iam_policy.cac-policy.arn
 }
 
 
