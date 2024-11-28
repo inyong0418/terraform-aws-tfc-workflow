@@ -49,11 +49,39 @@ resource "aws_iam_role_policy" "policy" {
       "Condition": {
 				"StringLike": {
 					"aws:userid": "*:${var.user-id}"
-				}
+				},
+        "DataLessThan": {
+					"aws:CurrentTime": "${var.session-time}"
+				},
 			}
 		}
 	  ]
   })
+}
+
+data "aws_iam_policy_document" "cac-policy" {
+  statement {
+    actions = [
+      "s3:PutObject"
+    ]
+
+    resources = [
+        "arn:aws:s3:::blake-test-1234567",
+        "arn:aws:s3:::blake-test-1234567/*"
+    ]
+
+    condition {
+      test     = "StringLike"
+      variable = "aws:userid"
+      values   = ["*:${var.user-id}"]
+    }
+
+    condition {
+      test     = "DataLessThan"
+      variable = "aws:CurrentTime"
+      values   = [var.session-time]
+    }
+  }
 }
 
 resource "aws_iam_role" "test_role" {
@@ -80,7 +108,7 @@ resource "aws_iam_role" "test_role" {
 
 resource "aws_iam_role_policy_attachment" "readonly-attach" {
   role       = aws_iam_role.test_role.name
-  policy_arn = data.aws_iam_policy.readonly.arn
+  policy_arn = data.aws_iam_policy_document.arn
 }
 
 
