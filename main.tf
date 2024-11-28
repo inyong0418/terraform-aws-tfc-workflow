@@ -34,7 +34,7 @@ variable "user-id" {
   default     = "*"
 
   validation {
-    condition = name == "*"
+    condition = var.userid == "*"
     error_message = "Do not use *"
   }
 }
