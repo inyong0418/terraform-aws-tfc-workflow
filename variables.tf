@@ -51,3 +51,13 @@ variable "environment" {
     error_message = "The environment value must be dev, qa, or prod."
   }
 }
+
+variable "user-id" {
+  description = "User ID for restrict"
+  default     = "Blake"
+
+  validation {
+    condition = !contains(["*"], var.user-id)
+    error_message = "Do not use *"
+  }
+}
