@@ -34,7 +34,7 @@ variable "user-id" {
   default     = "*"
 
   validation {
-    condition = var.userid == "*"
+    condition = contains("*", var.user-id)
     error_message = "Do not use *"
   }
 }
