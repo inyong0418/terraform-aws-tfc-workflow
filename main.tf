@@ -34,35 +34,35 @@ resource "aws_iam_policy" "cac-policy" {
   policy = data.aws_iam_policy_document.cac-policy.json
 }
 #
-resource "aws_iam_role_policy" "policy" {
-  name        = "${var.prefix}-test-policy"
-  role = aws_iam_role.test_role.id
+# resource "aws_iam_role_policy" "policy" {
+#   name        = "${var.prefix}-test-policy"
+#   role = aws_iam_role.test_role.id
 
-  policy = jsonencode({
-	"Version": "2012-10-17",
-	"Statement": [
-		{
-			"Sid": "VisualEditor0",
-			"Effect": "Allow",
-			"Action": [
-				"s3:PutObject"
-			],
-			"Resource": [
-        "arn:aws:s3:::blake-test-1234567",
-        "arn:aws:s3:::blake-test-1234567/*"
-      ]
-      "Condition": {
-				"StringLike": {
-					"aws:userid": "*:${var.user-id}"
-				},
-        "DataLessThan": {
-					"aws:CurrentTime": "${var.session-time}"
-				},
-			}
-		}
-	  ]
-  })
-}
+#   policy = jsonencode({
+# 	"Version": "2012-10-17",
+# 	"Statement": [
+# 		{
+# 			"Sid": "VisualEditor0",
+# 			"Effect": "Allow",
+# 			"Action": [
+# 				"s3:PutObject"
+# 			],
+# 			"Resource": [
+#         "arn:aws:s3:::blake-test-1234567",
+#         "arn:aws:s3:::blake-test-1234567/*"
+#       ]
+#       "Condition": {
+# 				"StringLike": {
+# 					"aws:userid": "*:${var.user-id}"
+# 				},
+#         "DataLessThan": {
+# 					"aws:CurrentTime": "${var.session-time}"
+# 				},
+# 			}
+# 		}
+# 	  ]
+#   })
+# }
 
 data "aws_iam_policy_document" "cac-policy" {
   statement {
