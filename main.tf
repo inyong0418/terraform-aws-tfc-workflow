@@ -28,6 +28,11 @@ provider "aws" {
 data "aws_iam_policy" "readonly" {
   name     = "ReadOnlyAccess"
 }
+
+resource "aws_iam_policy" "cac-policy" {
+  name     = "cac-policy"
+  policy = data.aws_iam_policy_document.cac-policy.json
+}
 #
 resource "aws_iam_role_policy" "policy" {
   name        = "${var.prefix}-test-policy"
@@ -108,7 +113,12 @@ resource "aws_iam_role" "test_role" {
 
 resource "aws_iam_role_policy_attachment" "readonly-attach" {
   role       = aws_iam_role.test_role.name
-  policy_arn = data.aws_iam_policy_document.cac-policy.arn
+  policy_arn = data.aws_iam_policy.readonly.arn
+}
+
+resource "aws_iam_role_policy_attachment" "cac-attach" {
+  role       = aws_iam_role.test_role.name
+  policy_arn = data.aws_iam_policy.cac-policy.arn
 }
 
 
