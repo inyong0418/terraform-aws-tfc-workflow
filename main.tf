@@ -29,11 +29,6 @@ data "aws_iam_policy" "readonly" {
   name     = "ReadOnlyAccess"
 }
 
-variable "user-id" {
-  description = "User ID for restrict"
-  default     = "*"
-}
-
 resource "aws_iam_role_policy" "policy" {
   name        = "${var.prefix}-test-policy"
   role = aws_iam_role.test_role.id

@@ -54,7 +54,8 @@ variable "environment" {
 
 variable "user-id" {
   description = "User ID for restrict"
-  default     = "Blake"
+  type = string
+  nullable = false
 
   validation {
     condition = !contains(["*"], var.user-id)
