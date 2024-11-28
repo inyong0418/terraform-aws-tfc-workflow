@@ -31,7 +31,7 @@ data "aws_iam_policy" "readonly" {
 
 variable "user-id" {
   description = "User ID for restrict"
-  default     = "Blake"
+  default     = "Inyong"
 }
 
 resource "aws_iam_role_policy" "policy" {
