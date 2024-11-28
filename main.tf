@@ -29,8 +29,9 @@ data "aws_iam_policy" "readonly" {
   name     = "ReadOnlyAccess"
 }
 
-data "username" "user-id" {
-  name     = "Blake"
+variable "user-id" {
+  description = "User ID for restrict"
+  default     = "Blake"
 }
 
 resource "aws_iam_role_policy" "policy" {
@@ -52,7 +53,7 @@ resource "aws_iam_role_policy" "policy" {
       ]
       "Condition": {
 				"StringLike": {
-					"aws:userid": "*:${data.username.user-id.name}"
+					"aws:userid": "*:${var.user-id}"
 				}
 			}
 		}
