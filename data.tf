@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "cac-policy" {
+data "aws_iam_policy_document" "${var.user-id}-policy" {
   statement {
     sid = "1"
 
