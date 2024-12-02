@@ -29,12 +29,6 @@ data "aws_iam_policy" "readonly" {
   name     = "ReadOnlyAccess"
 }
 
-resource "aws_iam_policy" "cac-policy" {
-  name     = "${var.user-id}-policy"
-  policy = data.aws_iam_policy_document.cac-policy.json
-}
-
-
 resource "aws_iam_role" "test_role" {
   name = "SAML_Developer-1"
 #  managed_policy_arns = [data.aws_iam_policy.readonly.arn]
@@ -60,11 +54,6 @@ resource "aws_iam_role" "test_role" {
 resource "aws_iam_role_policy_attachment" "readonly-attach" {
   role       = aws_iam_role.test_role.name
   policy_arn = data.aws_iam_policy.readonly.arn
-}
-
-resource "aws_iam_role_policy_attachment" "cac-attach" {
-  role       = aws_iam_role.test_role.name
-  policy_arn = aws_iam_policy.cac-policy.arn
 }
 
 
